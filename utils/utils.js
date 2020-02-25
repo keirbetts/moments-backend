@@ -1,12 +1,14 @@
-const s3 = new aws.S3({
-  accessKeyId: "",
-  secretAccessKey: "",
-  Bucket: "moments-nc"
-});
+const path = require("path");
 
-exports.multerUpload = {
-  storage: multerS3({
-    s3: s3,
-    bucket: ""
-  })
+const checkFileType = (file, cb) => {
+  const fileTypes = /jpeg|jpg|png/;
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = fileTypes.test(file.mimetype);
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    return cb({ status: 400, msg: "File type must be jpeg|jpg|png" });
+  }
 };
+
+module.exports = { checkFileType };

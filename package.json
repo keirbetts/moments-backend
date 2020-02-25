@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest spec/app.spec.js"
+    "test": "jest spec/app.spec.js",
+    "testBucket": "jest spec/app.bucket.spec.js"
   },
   "repository": {
     "type": "git",
