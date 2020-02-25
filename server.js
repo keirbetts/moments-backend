@@ -4,6 +4,10 @@ const express = require("express");
 const app = express();
 const apiRouter = require("./routes/apiRouter");
 const { handle404, handle400, handle500 } = require("./errors/errors");
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use("/api", apiRouter);
 

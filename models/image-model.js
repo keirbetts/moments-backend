@@ -36,14 +36,13 @@ const postImages = multer({
   }
 }).single("image.jpeg");
 
-const updateDb = (imageName, imageLocation) => {
+const updateDB = (imageName, imageLocation, usr) => {
   const params = {
     TableName: "Moments-dev",
     Key: {
-      usr: "crookydan",
-      picURL: imageLocation
+      usr
     },
-    UpdateExpression: "SET photos = list_append(photos, :vals)",
+    UpdateExpression: "SET picURL = list_append(picURL, :vals)",
     ExpressionAttributeValues: {
       ":vals": [imageLocation]
     },
@@ -60,4 +59,4 @@ const updateDb = (imageName, imageLocation) => {
     });
   });
 };
-module.exports = { postImages };
+module.exports = { postImages, updateDB };

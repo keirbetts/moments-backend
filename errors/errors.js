@@ -15,6 +15,11 @@ const handle400 = (err, req, res, next) => {
     res.status(400).send({ msg: err.msg });
   } else if (err.message === "Unexpected field") {
     res.status(400).send({ msg: err.message });
+  } else if (err.statusCode === 400) {
+    res.status(err.statusCode).send({
+      msg: err.message,
+      description: "this error may  indicate that the user does not exist in database"
+    });
   } else next(err);
 };
 
