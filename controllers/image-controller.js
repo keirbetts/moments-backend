@@ -8,7 +8,7 @@ const uploadImages = (req, res, next) => {
       } else {
         const imageName = req.file.key;
         const imageLocation = req.file.location;
-        const { usr } = req.body;
+        const { usr } = req.headers;
 
         updateDB(imageName, imageLocation, usr)
           .then(data => {
