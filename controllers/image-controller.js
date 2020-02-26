@@ -5,9 +5,8 @@ const uploadDBInfo = (req, res, next) => {
 
   updateDB(imageLocation, usr)
     .then(() => {
-      res.send({
+      res.status(201).send({
         location: imageLocation,
-        status: 200,
         msg: "success DB update"
       });
     })
