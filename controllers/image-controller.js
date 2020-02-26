@@ -1,4 +1,4 @@
-const { updateDB } = require("../models/image-model");
+const { updateDB, getAllImages } = require("../models/image-model");
 
 const uploadDBInfo = (req, res, next) => {
   const { imageLocation, usr } = req.body;
@@ -13,4 +13,18 @@ const uploadDBInfo = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = { uploadDBInfo };
+const fetchAllImages = (req, res, next) => {
+  const { usr } = req.params;
+
+  getAllImages(usr).then(
+    ({
+      data: {
+        Item: { picURL }
+      }
+    }) => {
+      res.status(200).send({ images: picURL });
+    }
+  );
+};
+
+module.exports = { uploadDBInfo, fetchAllImages };
