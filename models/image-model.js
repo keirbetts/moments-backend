@@ -26,4 +26,23 @@ const updateDB = (imageLocation, usr) => {
     });
   });
 };
-module.exports = { updateDB };
+
+const getAllImages = usr => {
+  const params = {
+    TableName: "Moments-dev",
+    Key: {
+      usr
+    }
+  };
+
+  return new Promise((resolve, reject) => {
+    ddb.get(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({ data });
+      }
+    });
+  });
+};
+module.exports = { updateDB, getAllImages };
