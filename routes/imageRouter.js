@@ -1,5 +1,5 @@
 const imageRouter = require("express").Router();
-const { uploadDBInfo, fetchAllImages } = require("../controllers/image-controller");
+const { uploadDBInfo, fetchAllImages, removeImage } = require("../controllers/image-controller");
 const { handle405 } = require("../errors/errors");
 
 imageRouter
@@ -10,6 +10,7 @@ imageRouter
 imageRouter
   .route("/:usr")
   .get(fetchAllImages)
+  .delete(removeImage)
   .all(handle405);
 
 module.exports = imageRouter;
