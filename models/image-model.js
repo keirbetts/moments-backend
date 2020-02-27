@@ -45,4 +45,37 @@ const getAllImages = usr => {
     });
   });
 };
-module.exports = { updateDB, getAllImages };
+
+const deleteFromDB = (usr, url) => {
+  return getAllImages(usr)
+    .then(
+      ({
+        data: {
+          Item: { picURL }
+        }
+      }) => {
+        const imagesArr = picURL;
+        return imagesArr.findIndex(imageURL => imageURL === url);
+      }
+    )
+    .then(indexToDelete => {
+      const params = {
+        TableName: "Moments-dev",
+        Key: {
+          usr
+        },
+        UpdateExpression: `REMOVE picURL[${indexToDelete}]`,
+        ReturnValues: "UPDATED_NEW"
+      };
+
+      ddb.update(params, (err, data) => {
+        if (err) {
+          console.log(err, "< err in prmise");
+          return Promise.reject(err);
+        } else {
+          return data;
+        }
+      });
+    });
+};
+module.exports = { updateDB, getAllImages, deleteFromDB };

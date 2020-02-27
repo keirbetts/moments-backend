@@ -1,4 +1,4 @@
-const { updateDB, getAllImages } = require("../models/image-model");
+const { updateDB, getAllImages, deleteFromDB } = require("../models/image-model");
 
 const uploadDBInfo = (req, res, next) => {
   const { imageLocation, usr } = req.body;
@@ -29,4 +29,14 @@ const fetchAllImages = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = { uploadDBInfo, fetchAllImages };
+const removeImage = (req, res, next) => {
+  const { usr } = req.params;
+  const { url } = req.body;
+  deleteFromDB(usr, url)
+    .then(() => {
+      res.status(200).send({ [usr]: `${url} has been deleted from this user` });
+    })
+    .catch(next);
+};
+
+module.exports = { uploadDBInfo, fetchAllImages, removeImage };

@@ -126,5 +126,13 @@ describe("API endpoint", () => {
           });
       }, 10000);
     });
+    describe("DELETE", () => {
+      test.only("status: 404 when passed a non existant user", () => {
+        return request
+          .delete("/api/images/smoothie")
+          .send({ url: "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582815613919.jpeg" })
+          .expect(404);
+      });
+    });
   });
 });
