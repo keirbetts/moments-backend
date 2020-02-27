@@ -37,8 +37,8 @@ const getAllImages = usr => {
 
   return new Promise((resolve, reject) => {
     ddb.get(params, (err, data) => {
-      if (err) {
-        reject(err);
+      if (!data.Item) {
+        reject({ statusCode: 404, msg: "user doesn't exist in DB" });
       } else {
         resolve({ data });
       }

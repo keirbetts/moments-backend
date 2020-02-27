@@ -56,3 +56,32 @@ describe("/api/upload", () => {
     }, 10000);
   });
 });
+
+describe("api/images/:usr", () => {
+  describe("GET", () => {
+    test("status: 200 with correct keys and type of string for url", () => {
+      return request
+        .get("/api/images/crookydan")
+        .expect(200)
+        .then(({ body }) => {
+          if (body.images.length > 0) {
+            expect(typeof body.images[0]).toBe("string");
+          }
+          expect(body).toHaveProperty("images");
+        });
+    }, 10000);
+
+    test("status: 404 if user does not exist in database", () => {
+      return request.get("/api/images/notAuser").expect(404);
+    }, 10000);
+
+    test("status: 404 if user does not exist in database", () => {
+      return request
+        .get("/api/images/notAuser")
+        .expect(404)
+        .then(({ text }) => {
+          expect(text).toBe("user doesn't exist in DB");
+        });
+    }, 10000);
+  });
+});
