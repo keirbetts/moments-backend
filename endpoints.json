@@ -4,7 +4,6 @@
   },
   "GET /api/images/:usr": {
     "description": "serves an array of all images for that user",
-    "queries": [],
     "exampleResponse": {
       "images": [
         "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582817965000.jpeg",
@@ -13,13 +12,12 @@
     }
   },
 
-  "POST (actually delete) /api/images/:usr": {
+  "POST (actually a delete) /api/images/:usr": {
     "description": "Removes the user from database and serves a status code of 200",
-    "queries": [],
     "request body example": {
       "url": "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582817965000.jpeg"
     },
-    "exampleResponse": "status code 200"
+    "exampleResponse": { "msg": ":usr account created in DB" }
   },
 
   "POST api/upload": {

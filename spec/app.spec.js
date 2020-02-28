@@ -47,8 +47,8 @@ describe("API endpoint", () => {
             usr: "crookydan"
           })
           .expect(201)
-          .then(({ body }) => {
-            expect(body.msg).toBe("success DB update");
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("success DB update");
             expect(body).toHaveProperty("location");
           });
       }, 10000);
@@ -60,8 +60,8 @@ describe("API endpoint", () => {
             usr: "crookydan"
           })
           .expect(404)
-          .then(({ body }) => {
-            expect(body.msg).toBe("Path not found");
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("Path not found");
           });
       }, 10000);
       test("status: 400 when passed incorrect request body", () => {
@@ -71,8 +71,8 @@ describe("API endpoint", () => {
             imageLocation: "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582728740883.jpeg"
           })
           .expect(400)
-          .then(({ body }) => {
-            expect(body.msg).toBe("The provided key element does not match the schema");
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("The provided key element does not match the schema");
           });
       }, 10000);
       test("status: 400 when passed incorrect request body, user not in database", () => {
@@ -83,8 +83,8 @@ describe("API endpoint", () => {
             usr: "a"
           })
           .expect(400)
-          .then(({ body }) => {
-            expect(body.msg).toBe(
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe(
               "The provided expression refers to an attribute that does not exist in the item"
             );
           });
@@ -109,9 +109,9 @@ describe("API endpoint", () => {
         return request
           .get("/api/images/crookydan")
           .expect(200)
-          .then(({ body }) => {
-            if (body.images.length > 0) {
-              expect(typeof body.images[0]).toBe("string");
+          .then(({ body: { images } }) => {
+            if (images.length > 0) {
+              expect(typeof images[0]).toBe("string");
             }
             expect(body).toHaveProperty("images");
           });

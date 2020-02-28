@@ -33,7 +33,6 @@ const removeImage = (req, res, next) => {
   const { url } = req.body;
   deleteFromDB(usr, url)
     .then(deleted => {
-      console.log(deleted);
       res.status(200).send({ msg: "url has been deleted from this user" });
     })
     .catch(next);
