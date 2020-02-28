@@ -41,7 +41,7 @@ The following endpoints are available:
 ```
 GET /api/images/:usr
 
-DELETE /api/images/:usr
+POST /api/images/:usr
 
 POST /api/upload
 
@@ -57,7 +57,7 @@ An array of all of the images in the database belonging to that user
 
 ---
 
-DELETE /api/images/:usr
+POST /api/images/:usr
 
 ### Request body accepts
 
