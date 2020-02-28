@@ -45,6 +45,8 @@ POST /api/images/:usr
 
 POST /api/upload
 
+POST /api/createuser
+
 ```
 
 ## More specifically, each endpoint responds like this:
@@ -78,6 +80,18 @@ An object in the form { imageLocation: url, usr: username}
 ### Responds with
 
 A status code of 201 and an object in the form { msg: "Succesfully updated DB"}
+
+---
+
+POST /api/createuser
+
+### Request body accepts
+
+An object in the form { usr: username }
+
+### Responds with
+
+A status code of 201 and an object in the form { msg: ":usr account created in DB"}
 
 ---
 
