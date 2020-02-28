@@ -1,3 +1,38 @@
 {
-  "POST an image to DynamoDB": "api/uploads"
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/images/:usr": {
+    "description": "serves an array of all images for that user",
+    "queries": [],
+    "exampleResponse": {
+      "images": [
+        "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582817965000.jpeg",
+        "https://moments-nc.s3.amazonaws.com/image-1582815613919.jpeg"
+      ]
+    }
+  },
+
+  "DELETE /api/images/:usr": {
+    "description": "serves a status code of 200",
+    "queries": [],
+    "request body example": {
+      "usr": "Andy",
+      "url": "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582817965000.jpeg"
+    },
+    "exampleResponse": "status code 200"
+  },
+
+  "POST api/upload": {
+    "description": "serves an array of comments for a particular article",
+    "queries": ["sort_by", "order"],
+    "request body example": {
+      "usr": "Andy",
+      "url": "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582815613919.jpeg"
+    },
+    "exampleResponse": {
+      "location": "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582815613919.jpeg",
+      "msg": "success DB update"
+    }
+  }
 }
