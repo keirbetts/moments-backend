@@ -1,30 +1,41 @@
-const { postImages, updateDB } = require("../models/image-model");
+const { updateDB, getAllImages, deleteFromDB } = require("../models/image-model");
 
-const uploadImages = (req, res, next) => {
-  return new Promise((resolve, reject) => {
-    postImages(req, res, error => {
-      if (error) {
-        reject(error);
-      } else {
-        const imageName = req.file.key;
-        const imageLocation = req.file.location;
-        const { usr } = req.headers;
+const uploadDBInfo = (req, res, next) => {
+  const { imageLocation, usr } = req.body;
 
-        updateDB(imageName, imageLocation, usr)
-          .then(data => {
-            res.send({
-              image: imageName,
-              location: imageLocation,
-              status: 200,
-              msg: "success DB update"
-            });
-          })
-          .catch(next);
-
-        resolve();
-      }
-    });
-  }).catch(next);
+  updateDB(imageLocation, usr)
+    .then(() => {
+      res.status(201).send({
+        msg: "Succesfully updated the DB!"
+      });
+    })
+    .catch(next);
 };
 
-module.exports = { uploadImages };
+const fetchAllImages = (req, res, next) => {
+  const { usr } = req.params;
+
+  getAllImages(usr)
+    .then(
+      ({
+        data: {
+          Item: { picURL }
+        }
+      }) => {
+        res.status(200).send({ images: picURL });
+      }
+    )
+    .catch(next);
+};
+
+const removeImage = (req, res, next) => {
+  const { usr } = req.params;
+  const { url } = req.body;
+  deleteFromDB(usr, url)
+    .then(deleted => {
+      res.status(200).send({ msg: "url has been deleted from this user" });
+    })
+    .catch(next);
+};
+
+module.exports = { uploadDBInfo, fetchAllImages, removeImage };

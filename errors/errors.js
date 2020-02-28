@@ -3,22 +3,17 @@ const handle405 = (req, res, next) => {
 };
 
 const handle404 = (err, req, res, next) => {
-  if (err.status === 404) {
-    res.status(err.status).send({ msg: err.msg });
-  } else if (err.statusCode === 404) {
-    res.status(err.statusCode).send({ msg: err.message });
+  if (err.statusCode === 404) {
+    res.status(err.statusCode).send(err.msg);
   } else next(err);
 };
 
 const handle400 = (err, req, res, next) => {
-  if (err.status === 400) {
-    res.status(400).send({ msg: err.msg });
-  } else if (err.message === "Unexpected field") {
+  if (err.message === "Unexpected field") {
     res.status(400).send({ msg: err.message });
   } else if (err.statusCode === 400) {
     res.status(err.statusCode).send({
-      msg: err.message,
-      description: "this error may  indicate that the user does not exist in database"
+      msg: err.message
     });
   } else next(err);
 };
