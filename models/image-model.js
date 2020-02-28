@@ -70,7 +70,6 @@ const deleteFromDB = (usr, url) => {
 
       ddb.update(params, (err, data) => {
         if (err) {
-          console.log(err, "< err in prmise");
           return Promise.reject(err);
         } else {
           return data;

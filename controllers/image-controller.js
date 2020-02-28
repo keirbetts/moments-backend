@@ -34,7 +34,7 @@ const removeImage = (req, res, next) => {
   const { url } = req.body;
   deleteFromDB(usr, url)
     .then(() => {
-      res.status(200).send({ [usr]: `${url} has been deleted from this user` });
+      res.status(200).send({ msg: "url has been deleted from this user" });
     })
     .catch(next);
 };
