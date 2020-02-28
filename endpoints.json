@@ -13,11 +13,10 @@
     }
   },
 
-  "DELETE /api/images/:usr": {
-    "description": "serves a status code of 200",
+  "POST (actually delete) /api/images/:usr": {
+    "description": "Removes the user from database and serves a status code of 200",
     "queries": [],
     "request body example": {
-      "usr": "Andy",
       "url": "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582817965000.jpeg"
     },
     "exampleResponse": "status code 200"

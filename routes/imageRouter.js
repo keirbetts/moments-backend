@@ -10,7 +10,7 @@ imageRouter
 imageRouter
   .route("/:usr")
   .get(fetchAllImages)
-  .delete(removeImage)
+  .post(removeImage)
   .all(handle405);
 
 module.exports = imageRouter;

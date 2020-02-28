@@ -72,7 +72,7 @@ const deleteFromDB = (usr, url) => {
         if (err) {
           return Promise.reject(err);
         } else {
-          return data;
+          return { data };
         }
       });
     });
