@@ -24,8 +24,7 @@
   },
 
   "POST api/upload": {
-    "description": "serves an array of comments for a particular article",
-    "queries": ["sort_by", "order"],
+    "description": "serves an object with location of uploaded file and success message",
     "request body example": {
       "usr": "Andy",
       "url": "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582815613919.jpeg"
