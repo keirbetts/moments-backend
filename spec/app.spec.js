@@ -95,7 +95,7 @@ describe("API endpoint", () => {
   describe("api/images/:usr", () => {
     describe("GET", () => {
       test("status 405 invalid method", () => {
-        const invalidMethods = ["put", "patch"];
+        const invalidMethods = ["delete", "patch"];
         const methodPromise = invalidMethods.map(method => {
           return request[method]("/api/images/crookydan")
             .expect(405)
@@ -126,13 +126,51 @@ describe("API endpoint", () => {
           });
       }, 10000);
     });
-    describe("DELETE", () => {
-      test.only("status: 404 when passed a non existant user", () => {
+    describe("POST --actually delete-- ", () => {
+      test("status: 404 when passed a non existent user", () => {
         return request
-          .delete("/api/images/smoothie")
+          .post("/api/images/smoothie")
           .send({ url: "https://moments-nc.s3.eu-west-2.amazonaws.com/image-1582815613919.jpeg" })
           .expect(404);
       });
+    });
+  });
+
+  describe("api/createuser", () => {
+    describe("POST", () => {
+      test("status 405 invalid method", () => {
+        const invalidMethods = ["get", "patch", "delete"];
+        const methodPromise = invalidMethods.map(method => {
+          return request[method]("/api/createuser")
+            .expect(405)
+            .send({ usr: "steph" })
+            .then(({ body: { msg } }) => {
+              expect(msg).toBe("Method not allowed");
+            });
+        });
+        return Promise.all(methodPromise);
+      });
+      test("status: 201 with correct keys", () => {
+        return request
+          .post("/api/createuser")
+          .expect(201)
+          .send({ usr: "steph" })
+          .then(({ body }) => {
+            expect(body.msg).toBe("steph account created in DB");
+          });
+      }, 10000);
+
+      test("status: 400 if request body does not have key of usr", () => {
+        return request
+          .post("/api/createuser")
+          .send({ user: "steph" })
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe(
+              "One or more parameter values were invalid: Missing the key usr in the item"
+            );
+          });
+      }, 10000);
     });
   });
 });
