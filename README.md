@@ -39,6 +39,8 @@ SECRET_KEY=yoursecretkey
 The following endpoints are available:
 
 ```
+GET /api
+
 GET /api/images/:usr
 
 POST /api/images/:usr
@@ -50,6 +52,14 @@ POST /api/createuser
 ```
 
 ## More specifically, each endpoint responds like this:
+
+GET /api
+
+### Responds with
+
+A JSON object with all of the available endpoints and what they respond with
+
+---
 
 GET /api/images/:usr
 
@@ -102,5 +112,6 @@ A status code of 201 and an object in the form { msg: ":usr account created in D
 - aws-serverless-express
 - Jest
 - Supertest
+- Bodyparser
 - Cors
 - Claudia
