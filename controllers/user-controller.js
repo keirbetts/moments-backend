@@ -1,4 +1,4 @@
-const createUserInDB = require("../models/user-model");
+const { createUserInDB, updateActiveUser } = require("../models/user-model");
 
 const createUser = (req, res, next) => {
   const { usr } = req.body;
@@ -9,4 +9,13 @@ const createUser = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = createUser;
+const changeActiveUser = (req, res, next) => {
+  const { usr } = req.body;
+  updateActiveUser(usr)
+    .then(() => {
+      res.status(200).send({ msg: "Active user changed" });
+    })
+    .catch(next);
+};
+
+module.exports = { createUser, changeActiveUser };
