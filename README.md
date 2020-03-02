@@ -43,7 +43,7 @@ GET /api
 
 GET /api/images/:usr
 
-POST /api/images/:usr
+POST (actually a delete request) /api/images/:usr
 
 POST /api/upload
 
@@ -63,6 +63,8 @@ A JSON object with all of the available endpoints and what they respond with
 
 GET /api/images/:usr
 
+Gets all of the images belonging to that user from the DB.
+
 ### Responds with
 
 An array of all of the images in the database belonging to that user
@@ -70,6 +72,8 @@ An array of all of the images in the database belonging to that user
 ---
 
 POST /api/images/:usr
+
+Deletes the given image URL from the users table in the DB.
 
 ### Request body accepts
 
@@ -83,6 +87,8 @@ A status code of 200
 
 POST /api/upload
 
+Adds the given image URL to the users table in the DB.
+
 ### Request body accepts
 
 An object in the form { imageLocation: url, usr: username}
@@ -94,6 +100,8 @@ A status code of 201 and an object in the form { msg: "Succesfully updated DB"}
 ---
 
 POST /api/createuser
+
+Creates the user table in the DB.
 
 ### Request body accepts
 

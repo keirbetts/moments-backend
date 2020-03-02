@@ -2,7 +2,7 @@ process.env.NODE_ENV = "test";
 const app = require("../server");
 const request = require("supertest")(app);
 
-describe.only("API endpoint", () => {
+describe("API endpoint", () => {
   describe("GET", () => {
     test("status: 404 returns object with message of Route not found", () => {
       return request
