@@ -11,7 +11,6 @@ const createUserInDB = usr => {
       picURL: []
     }
   };
-
   return new Promise((resolve, reject) => {
     ddb.put(params, (err, data) => {
       if (err) {
@@ -23,4 +22,27 @@ const createUserInDB = usr => {
   });
 };
 
-module.exports = createUserInDB;
+const updateActiveUser = usr => {
+  const params = {
+    TableName: "Moments-dev",
+    Key: {
+      usr: "Active"
+    },
+    UpdateExpression: "SET refActive = :vals",
+    ExpressionAttributeValues: {
+      ":vals": usr
+    },
+    ReturnValues: "UPDATED_NEW"
+  };
+  return new Promise((resolve, reject) => {
+    ddb.update(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({ data });
+      }
+    });
+  });
+};
+
+module.exports = { createUserInDB, updateActiveUser };

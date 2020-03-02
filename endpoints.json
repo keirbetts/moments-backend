@@ -37,5 +37,14 @@
     "exampleResponse": {
       "msg": "newUsr account created in DB"
     }
+  },
+  "PATCH /api/activeuser": {
+    "description": "sets the active user in the database",
+    "request body example": {
+      "usr": "currentUsr"
+    },
+    "exampleResponse": {
+      "msg": "Active user changed"
+    }
   }
 }
