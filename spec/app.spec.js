@@ -2,7 +2,7 @@ process.env.NODE_ENV = "test";
 const app = require("../server");
 const request = require("supertest")(app);
 
-describe("API endpoint", () => {
+describe.only("API endpoint", () => {
   describe("GET", () => {
     test("status: 404 returns object with message of Route not found", () => {
       return request
@@ -12,7 +12,6 @@ describe("API endpoint", () => {
           expect(msg).toBe("Path not found");
         });
     });
-
     test("status 405 invalid method", () => {
       const invalidMethods = ["put", "patch", "delete"];
       const methodPromise = invalidMethods.map(method => {
@@ -49,7 +48,6 @@ describe("API endpoint", () => {
           .expect(201)
           .then(({ body: { msg } }) => {
             expect(msg).toBe("success DB update");
-            expect(body).toHaveProperty("location");
           });
       }, 10000);
       test("status: 404 when passed an incorrect endpoint", () => {
@@ -113,10 +111,9 @@ describe("API endpoint", () => {
             if (images.length > 0) {
               expect(typeof images[0]).toBe("string");
             }
-            expect(body).toHaveProperty("images");
+            // expect(body).toHaveProperty("images");
           });
       }, 10000);
-
       test("status: 404 if user does not exist in database", () => {
         return request
           .get("/api/images/notAuser")
@@ -171,6 +168,49 @@ describe("API endpoint", () => {
             );
           });
       }, 10000);
+    });
+  });
+
+  describe("api/activeuser", () => {
+    describe("PATCH", () => {
+      test("status: 201 returns an object with correct keys", () => {
+        return request
+          .patch("/api/activeuser")
+          .send({ usr: "crookydan" })
+          .expect(201)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("Active user changed");
+          });
+      });
+      test("status: 405 when given an invalid method", () => {
+        const invalidMethods = ["delete", "put", "get"];
+        const methodPromise = invalidMethods.map(method => {
+          return request[method]("/api/activeuser")
+            .expect(405)
+            .then(({ body: { msg } }) => {
+              expect(msg).toBe("Method not allowed");
+            });
+        });
+        return Promise.all(methodPromise);
+      });
+      test("status: 400 when passed the incorrect request body", () => {
+        return request
+          .patch("/api/activeuser")
+          .send({ user: "crookydan" })
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("ExpressionAttributeValues must not be empty");
+          });
+      });
+      test("status: 404 when passed the incorrect path", () => {
+        return request
+          .patch("/api/active")
+          .send({ usr: "crookydan" })
+          .expect(404)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("Path not found");
+          });
+      });
     });
   });
 });

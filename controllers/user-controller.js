@@ -13,7 +13,7 @@ const changeActiveUser = (req, res, next) => {
   const { usr } = req.body;
   updateActiveUser(usr)
     .then(() => {
-      res.status(200).send({ msg: "Active user changed" });
+      res.status(201).send({ msg: "Active user changed" });
     })
     .catch(next);
 };
