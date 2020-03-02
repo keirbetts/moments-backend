@@ -22,14 +22,13 @@ const createUserInDB = usr => {
   });
 };
 
-//CAN SOMEONE CHECK THIS MODEL PLEASE, IT SHOULD UPDATE THE ACTIVE USER IN THE DB.
 const updateActiveUser = usr => {
   const params = {
     TableName: "Moments-dev",
     Key: {
       usr: "Active"
     },
-    UpdateExpression: "SET ref = :vals",
+    UpdateExpression: "SET refActive = :vals",
     ExpressionAttributeValues: {
       ":vals": usr
     },
