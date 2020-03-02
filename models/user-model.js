@@ -45,4 +45,18 @@ const updateActiveUser = usr => {
   });
 };
 
-module.exports = { createUserInDB, updateActiveUser };
+const fetchUser = ({ usr }) => {
+  const params = {
+    TableName: "Moments-dev",
+    FilterExpression: "usr = :username",
+    ExpressionAttributeValues: { ":username": usr }
+  };
+  return new Promise((resolve, reject) => {
+    ddb.scan(params, (err, data) => {
+      if (err) reject(err);
+      else resolve(data);
+    });
+  });
+};
+
+module.exports = { createUserInDB, updateActiveUser, fetchUser };

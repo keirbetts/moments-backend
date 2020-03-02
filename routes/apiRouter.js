@@ -14,5 +14,6 @@ apiRouter.use("/upload", imageRouter);
 apiRouter.use("/images", imageRouter);
 apiRouter.use("/createuser", userRouter);
 apiRouter.use("/activeuser", activeUserRouter);
+apiRouter.use("/users", userRouter);
 
 module.exports = apiRouter;
