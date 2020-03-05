@@ -5,7 +5,7 @@ const ddb = new aws.DynamoDB.DocumentClient();
 
 const createUserInDB = usr => {
   const params = {
-    TableName: "Moments-dev",
+    TableName: "Moments-prod",
     Item: {
       usr,
       picURL: []
@@ -24,7 +24,7 @@ const createUserInDB = usr => {
 
 const updateActiveUser = usr => {
   const params = {
-    TableName: "Moments-dev",
+    TableName: "Moments-prod",
     Key: {
       usr: "Active"
     },
