@@ -5,7 +5,7 @@ const ddb = new aws.DynamoDB.DocumentClient();
 
 const updateDB = (imageLocation, usr) => {
   const params = {
-    TableName: "Moments-dev",
+    TableName: "Moments-prod",
     Key: {
       usr
     },
@@ -29,7 +29,7 @@ const updateDB = (imageLocation, usr) => {
 
 const getAllImages = usr => {
   const params = {
-    TableName: "Moments-dev",
+    TableName: "Moments-prod",
     Key: {
       usr
     }
@@ -60,7 +60,7 @@ const deleteFromDB = (usr, url) => {
     )
     .then(indexToDelete => {
       const params = {
-        TableName: "Moments-dev",
+        TableName: "Moments-prod",
         Key: {
           usr
         },
